@@ -1,3 +1,5 @@
+/* CSS file for encrypt-element header */
+
 input[type="file"] { 
     opacity: 0; /* make transparent */
     z-index: -1; /* move under anything else */
