@@ -1,5 +1,8 @@
 function(properties, context) {
 
+
+// Define function decrypt. Takes values from download API call and uses them to decrypt base64string
+
     const decrypt = (keyData, encryptedBase64, ivData, saltData, fileName) => {
         return new Promise(async (resolve, reject) => {
             const encoder = new TextEncoder();
@@ -60,6 +63,8 @@ function(properties, context) {
         });
     };
 
+// Define function downloadBase64File (requires data URI from previous step)
+    
     function downloadBase64File(dataUrl, fileName) {
         if (fileName.includes("pdf")) {
             const pdfSource = `data:application/pdf;base64,${dataUrl}`;
@@ -78,6 +83,8 @@ function(properties, context) {
         }
 
     };
+
+// Defines what happens when action called in wf    
 
     decrypt(properties.keydata, properties.encryptedbase64, properties.ivdata, properties.saltdata, properties.filename)
     .then(decryptedStuff => {
