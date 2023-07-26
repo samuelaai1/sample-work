@@ -3,10 +3,18 @@ var file;
 
     var input = $('<div id="file"><input type="file" class="custom-file-input" id="file-upload"/><label for="file-upload" class="custom-file-label">Click to select files to upload</label></div>');
 
+// Make sure id for button that triggers the upload has the HTML ID 'trigger2'. 
+// You can replace 'trigger2' if required, just make sure the values match 
+
     var button = document.getElementById('trigger2');
 
     instance.canvas.append(input);
+
+// Get file from file input defiend by var input above
+
     var fileInput = document.getElementById('file-upload');
+
+// Defining function readFile (get base64 string of file)
 
     function readFile(file) {
         return new Promise((resolve, reject) => {
@@ -20,6 +28,9 @@ var file;
             reader.readAsDataURL(file);
         });
     }
+
+// Defining function encrypt (used to encrypt base64 string)
+// For explanation of the terms salt and iv, see this webpage: https://dev.to/halan/4-ways-of-symmetric-cryptography-and-javascript-how-to-aes-with-javascript-3o1b
 
     const encrypt = textToEncrypt => {
         return new Promise(async (resolve, reject) => {
@@ -66,11 +77,16 @@ var file;
         });
     };
 
+// When file is selected through HTML file input element, extract file name
+
     fileInput.addEventListener('change', (e) => {
         file = e.target.files[0];
         const fileName = file.name;
         instance.publishState("filename", fileName)
     });
+
+// When button is clicked, run function readFile and then function encryptedData .
+// Then push values to custom states using instance.publishState
 
     button.addEventListener('click', (e) => {
         if (document.getElementById("file-upload").files.length == 0) {
