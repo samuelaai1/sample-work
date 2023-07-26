@@ -1,7 +1,9 @@
+// defining variables
   var search;
   var lists;
   
 function init_search() {
+  // defining index to run search on
     lists = instantsearch({
       indexName: 'heylearn_live_custom.list',
       searchClient: algoliasearch(
@@ -16,6 +18,7 @@ function init_search() {
         '6827b6789c5fe107adcc17b2529d78b2'
         ),
       routing: {
+        // defining one-way routing
         router: instantsearch.routers.history({
           createURL({ qsModule, location, routeState }) {
             // current search params 
@@ -79,7 +82,8 @@ function init_search() {
     });
 
 
-    // initialize RefinementList
+    // initialize RefinementList widgets
+  // checkbox values for learnpractice/resourcetype listed twice each (one for desktop and one for mobile)
     const refinementList1 = instantsearch.widgets.refinementList({
         container: '#refinement-list',
         attribute: 'learnpracticetext_text' 
@@ -100,7 +104,7 @@ function init_search() {
         attribute: 'resourcetypetext_text' 
     });
 
-    // initialize searchBox
+    // initialize searchBox (one for mobile view and one for desktop view)
     const searchbox1 = instantsearch.widgets.searchBox({
         container: '#search-box',
         placeholder: 'Search for resources'
@@ -111,6 +115,7 @@ function init_search() {
         placeholder: 'Search for resources'
     });
 
+  // listing constraints for search (one for resource search, one for list search)
     const configure1 = instantsearch.widgets.configure({
         filters: ""
     });
@@ -133,7 +138,7 @@ function init_search() {
       configure2,
     ); 
 
-
+// Showing results for resource and list search
     const makeHits = instantsearch.connectors.connectHits(
       function renderHits({hits}) {
         const hitlist = [];
@@ -161,7 +166,7 @@ function init_search() {
     lists.start();
 }
 
-  
+  // this is to run search on page
 $(document).ready(function(){
 
   $.getScript("https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch-lite.umd.js" ).done( function() {
